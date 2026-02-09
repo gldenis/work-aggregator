@@ -94,6 +94,8 @@ dp.onNewMessage(async (msg) => {
   const text = msg.text;
   if (!text) return;
 
+  await msg.forwardTo({ toChatId: targetChatId})
+
   if (messageMatches(text)) {
     try {
       await msg.forwardTo({ toChatId: targetChatId})
