@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
   "dependencies": {
-    "input": "^1.0.1",
-    "telegram": "^2.26.22"
+    "@mtcute/dispatcher": "^0.27.8",
+    "@mtcute/node": "^0.27.8",
+    "input": "^1.0.1"
   }
 }
