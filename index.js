@@ -55,12 +55,9 @@ function messageMatches(text) {
 }
 
 function getThreadId(message) {
+
   return (
-    message.forumTopicId ??
-    message.replyTo?.forumTopicId ??
-    message.replyToMsgId ??
-    message.replyToTopMsgId ??
-    message.threadId ??
+    message.replyToMessage?.threadId ??
     null
   );
 }
@@ -78,14 +75,13 @@ dp.onNewMessage(async (msg) => {
   const message = msg.text;
   if (!msg || !message) return;
 
-  console.log(msg?.chat.id, msg)
   const chatId = msg?.chat.id
 
   // не отслеживаем этот чат
   if (!monitoredSources.hasOwnProperty(chatId)) return;
 
   const allowedThreads = monitoredSources[chatId];
-  const threadId = getThreadId(message);
+  const threadId = getThreadId(msg);
 
 
   if (Array.isArray(allowedThreads) && allowedThreads.length > 0) {
