@@ -3,6 +3,7 @@ import { Dispatcher } from '@mtcute/dispatcher'
 import path from 'node:path';
 import { fileURLToPath } from 'url';
 import * as fs from 'node:fs'
+import { isDuplicate } from "./anti-duplicate.js";
 
 // Чаты и, при необходимости, их топики
 // если для чата массив пустой или отсутствует — разрешены все сообщения
@@ -94,6 +95,11 @@ dp.onNewMessage(async (msg) => {
   // await msg.forwardTo({ toChatId: targetChatId})
 
   if (messageMatches(text)) {
+
+    if (isDuplicate(text)) {
+      return;
+    }
+
     try {
       await msg.forwardTo({ toChatId: targetChatId})
       console.log(`📤 Переслано сообщение из ${chatId}${threadId ? `, thread ${threadId}` : ''}`);
